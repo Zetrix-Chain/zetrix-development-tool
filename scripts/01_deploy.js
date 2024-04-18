@@ -3,24 +3,28 @@ const co = require('co');
 const fs = require("fs");
 const BigNumber = require('bignumber.js');
 const sleep = require("../utils/delay");
-require('dotenv').config({path: ".env"})
+// require('dotenv').config({path: ".env"})
 
 /*
  Specify the zetrix address and private key
  */
-const privateKey = process.env.PRIVATE_KEY;
-const sourceAddress = process.env.ZTX_ADDRESS;
+// const privateKey = process.env.PRIVATE_KEY;
+// const sourceAddress = process.env.ZTX_ADDRESS;
+const privateKey = "privBw3WuHU8KDY7NhhcC3a8d8cE25u8ZbiVYyk2nB9ePL8NX4GWVahX"
+const sourceAddress = "ZTX3Z2ehcTibc7xqFBDZyhEDMRxmM6mwH32E6"
+const nodeUrl = "52.81.215.222:19333"
+// console.log(privateKey,sourceAddress)
 
 /*
  Specify the smart contract file name
  */
 const contractName = 'base.js'
-
+// 18.19.1
 /*
  Specify the Zetrix Node url
  */
 const sdk = new ZtxChainSDK({
-  host: process.env.NODE_URL,
+  host: "52.81.215.222:19333",
   secure: false /* set to false if without SSL */
 });
 
@@ -49,7 +53,10 @@ co(function* () {
   /*
    Specify the input parameters for contract initialization
    */
-  let input = {}
+  let input = 
+  {
+    "committee" : ["ZTX3Z2ehcTibc7xqFBDZyhEDMRxmM6mwH32E6"]
+  }
 
   let contractCreateOperation = sdk.operation.contractCreateOperation({
     sourceAddress: sourceAddress,
