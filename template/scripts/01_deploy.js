@@ -6,25 +6,26 @@ const sleep = require("../utils/delay");
 require('dotenv').config({path: ".env"})
 
 /*
- Specify the zetrix address and private key
- */
-const privateKey = process.env.PRIVATE_KEY;
+  Specify the zetrix address and private key
+*/
 const sourceAddress = process.env.ZTX_ADDRESS;
+const privateKey = process.env.PRIVATE_KEY;
 
 /*
- Specify the smart contract file name
- */
-const contractName = 'base.js'
+  Specify the smart contract file name and the smart contract file
+*/
+const contractName = 'compiled.js';
+const compiledContractFilePath = '[PROJECT NAME]/build/' + contractName;
+const contractData = fs.readFileSync(compiledContractFilePath, 'utf8');
 
 /*
- Specify the Zetrix Node url
- */
+  Specify the Zetrix Node url
+*/
 const sdk = new ZtxChainSDK({
   host: process.env.NODE_URL,
-  secure: false /* set to false if without SSL */
+  secure: true /* set to false if without SSL */
 });
 
-let contractData = fs.readFileSync('./contracts/' + contractName, 'utf8');
 
 co(function* () {
 
@@ -47,10 +48,23 @@ co(function* () {
   console.log("Your current nonce is", nonce);
 
   /*
-   Specify the input parameters for contract initialization
-   */
-  let input = {}
+    Specify the input parameters for contract initialization. This is just a sample.
+  */
+  let input = {
+    "params": {
+      "name": "testmigrationcontract",
+      "symbol": "TEST",
+      "describe": "Migration Token",
+      "version": "1.0.0",
+      "url": "www.chnt.com",
+      "protocol":"ztp20"
+    }
 
+  }
+
+  /*
+    Initialize the operation to deploy the smart contract
+  */
   let contractCreateOperation = sdk.operation.contractCreateOperation({
     sourceAddress: sourceAddress,
     initBalance: '0',
@@ -64,8 +78,14 @@ co(function* () {
     return;
   }
 
+  /*
+    Retrieve the operation 
+  */
   const operationItem = contractCreateOperation.result.operation;
 
+  /* 
+    Evaluate the fee needed to run the operation. Fee is needed to build the transaction blob
+  */
   let feeData = yield sdk.transaction.evaluateFee({
     sourceAddress,
     nonce,
@@ -85,6 +105,9 @@ co(function* () {
   console.log("Fee limit for this contract is", feeLimit);
   console.log("Estimated gas price is", gasPrice);
 
+  /*
+    Build the blob for the transaction
+  */
   const blobInfo = sdk.transaction.buildBlob({
     sourceAddress: sourceAddress,
     gasPrice: gasPrice,
@@ -93,11 +116,17 @@ co(function* () {
     operations: [operationItem],
   });
 
+  /*
+    Sign the transaction
+  */
   const signed = sdk.transaction.sign({
     privateKeys: [privateKey],
     blob: blobInfo.result.transactionBlob
   })
 
+  /*
+    Submit the transaction
+  */
   let submitted = yield sdk.transaction.submit({
     signature: signed.result.signatures,
     blob: blobInfo.result.transactionBlob

@@ -14,7 +14,7 @@ const sourceAddress = process.env.ZTX_ADDRESS;
 /*
  Specify the smart contract address
  */
-const contractAddress = 'ZTX3LJtVUun23okUNYXQ1n3NNBSAt1vMUbwk4';
+const contractAddress = '';
 
 /*
  Specify the Zetrix Node url
@@ -39,12 +39,12 @@ describe('Test contract function #01', function () {
     nonce = new BigNumber(nonce).plus(1).toString(10);
 
     /*
-     Specify the input parameters for invoking contract
+     Specify the input parameters for invoking your contract. The following is just a sample.
      */
     let input = {
       "method": "testMethod",
       "params": {
-        "name": "Zetrix"
+        "address": "ZTX01ndknae21noBkblwdq2"
       }
     }
 
@@ -56,13 +56,17 @@ describe('Test contract function #01', function () {
     });
 
     console.log(contractInvoke)
-
     expect(contractInvoke.errorCode).to.equal(0)
 
+    /*
+     Retrieve the operation 
+     */
     const operationItem = contractInvoke.result.operation;
-
     console.log(operationItem)
 
+    /* 
+    Evaluate the fee needed to run the operation. Fee is needed to build the transaction blob
+    */
     let feeData = yield sdk.transaction.evaluateFee({
       sourceAddress,
       nonce,
@@ -78,6 +82,9 @@ describe('Test contract function #01', function () {
     console.log("gasPrice", gasPrice);
     console.log("feeLimit", feeLimit);
 
+    /*
+    Build the blob for the transaction
+    */
     const blobInfo = sdk.transaction.buildBlob({
       sourceAddress: sourceAddress,
       gasPrice: gasPrice,
@@ -89,6 +96,9 @@ describe('Test contract function #01', function () {
     console.log(blobInfo);
     expect(blobInfo.errorCode).to.equal(0)
 
+    /*
+    Sign the transaction
+    */
     const signed = sdk.transaction.sign({
       privateKeys: [privateKey],
       blob: blobInfo.result.transactionBlob
@@ -97,6 +107,9 @@ describe('Test contract function #01', function () {
     console.log(signed)
     expect(signed.errorCode).to.equal(0)
 
+    /*
+    Submit the transaction
+    */
     let submitted = yield sdk.transaction.submit({
       signature: signed.result.signatures,
       blob: blobInfo.result.transactionBlob

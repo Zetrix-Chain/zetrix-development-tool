@@ -1,16 +1,39 @@
 {
+  "name": "@zetrix/zetrix-development-toolkit",
+  "version": "1.0.0",
+  "description": "A Zetrix development environment for professionals. It facilitates performing frequent tasks, such as running tests, interacting with a smart contract.",
+  "main": "index.js",
   "scripts": {
-    "deploy": "node ./scripts/01_deploy.js",
-    "test": "node ./node_modules/mocha/bin/mocha -r dotenv/config"
+    "compile": "concat -o template/build/compiled.js template/contracts/1-base-starting.js template/contracts/2-body-ZTP20.js template/contracts/3-base-ending.js",
+    "deploy": "node ./template/scripts/01_deploy.js",
+    "test": "npx mocha ./template/tests/test-01.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zetrix-Chain/zetrix-development-tool/issues"
+  },
+  "keywords": [
+    "zetrix",
+    "development",
+    "toolkit"
+  ],
+  "author": "izadimrantan <izadimrantan@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Zetrix-Chain/zetrix-development-tool/issues"
+  },
+  "homepage": "https://github.com/Zetrix-Chain/zetrix-development-tool#readme",
+  "bin": {
+    "zetrix-init": "index.js"
   },
   "dependencies": {
-    "dotenv": "^16.0.1",
-    "ssl-root-cas": "^1.3.1",
-    "zetrix-sdk-nodejs": "^1.0.0"
-  },
-  "devDependencies": {
+    "fs-extra": "^11.1.1",
     "chai": "^4.3.6",
+    "concat-cli": "^4.0.0",
     "mocha": "^10.0.0",
-    "mocha-generators": "^2.0.0"
+    "mocha-generators": "^2.0.0",
+    "zetrix-sdk-nodejs": "^1.0.0",
+    "dotenv": "^16.0.1",
+    "ssl-root-cas": "^1.3.1"
   }
 }
