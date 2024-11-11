@@ -1,5 +1,5 @@
 {
-  "name": "@zetrix/zetrix-development-toolkit",
+  "name": "@zetrix/zetrix-development-tool",
   "version": "1.0.0",
   "description": "A Zetrix development environment for professionals. It facilitates performing frequent tasks, such as running tests, interacting with a smart contract.",
   "main": "index.js",
