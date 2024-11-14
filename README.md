@@ -1,4 +1,4 @@
-# Zetrix Development Toolkit
+# Zetrix Development Tool
 A Zetrix development environment for professionals. It facilitates performing frequent tasks, such as compiling smart contract and scripts for deployment and testing.
 
 ## Docs & Useful Links
@@ -22,12 +22,12 @@ First, we initialize a NodeJS project by running the following command:
 $ npm init
 ```
 
-We then install the Zetrix development toolkit:
+We then install the Zetrix development tool:
 ```bash
-$ npm install zetrix-development-toolkit
+$ npm install zetrix-development-tool
 ```
 
-We can then run the command to initialize the Zetrix development toolkit. You need to give your project folder a name, and for the purpose of this example, we will name the folder `template`.
+We can then run the command to initialize the Zetrix development tool. You need to give your project folder a name, and for the purpose of this example, we will name the folder `template`.
 ```bash
 $ npx zetrix-init template
 ```
