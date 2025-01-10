@@ -35,9 +35,9 @@ $ npx zetrix-init template
 We then update the `scripts` section of the `package.json` with the following:
 ```js
 "scripts": {
-    "compile": "concat -o [PROJECT NAME]/build/compiled.js [PROJECT NAME]/contracts/1-base-starting.js [PROJECT NAME]/contracts/2-body-ZTP20.js [PROJECT NAME]/contracts/3-base-ending.js",
-    "deploy": "node ./[PROJECT NAME]/scripts/01_deploy.js",
-    "test": "node ./[PROJECT NAME]/tests/test-01.js"
+    "compile": "concat -o template/build/compiled.js template/contracts/1-base-starting.js template/contracts/2-body-ZTP20.js template/contracts/3-base-ending.js",
+    "deploy": "node ./template/scripts/01_deploy.js",
+    "test": "npx mocha ./template/tests/test-01.js"
 }
 ```
 
@@ -65,7 +65,7 @@ Insert the private key of the Zetrix address you are going to use to deploy the 
 PRIVATE_KEY=[THE PRIVATE KEY TO YOUR ZETRIX ADDRESS]
 ```
 
-After all of the above have been completed, we can now proceed to compile the smart contract in the contracts folder. In the `scripts` section, the `compile` command essentially compiles the contents from the specified files, so if you have different names for the files or if you would like to add more files to compile, you may do so by adding those file names into the `compile` command, and importantly, in order (`1-base-starting.js` and `3-base-ending.js` should remain at the top and bottom of the `compiled.js` file respectively). The command by default compiles a standard ZTP-20 smart contract from the `contracts` folder. Once you have updated the command, you can then run:
+After all of the above have been completed, we can now proceed to compile the smart contract in the contracts folder. In the `scripts` section, the `compile` command essentially compiles the contents from the specified files, so if you have different names for the files or if you would like to add more files to compile, you may do so by adding those file names into the `compile` command, and importantly, in order `base.js` and `init.js` should remain at the top and bottom of the `compiled.js` file respectively). The command by default compiles a standard ZTP-20 smart contract from the `contracts` folder. Once you have updated the command, you can then run:
 ```sh
 $ npm run compile
 ```
