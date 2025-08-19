@@ -14,9 +14,8 @@ const privateKey = process.env.PRIVATE_KEY;
 /*
   Specify the smart contract file name and the smart contract file
 */
-const contractName = 'compiled.js';
-const compiledContractFilePath = '[PROJECT NAME]/build/' + contractName;
-const contractData = fs.readFileSync(compiledContractFilePath, 'utf8');
+const contractPath = 'contracts/ZTP20_sample.js';
+const contractData = fs.readFileSync(contractPath, 'utf8');
 
 /*
   Specify the Zetrix Node url

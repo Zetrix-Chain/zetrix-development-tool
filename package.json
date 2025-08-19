@@ -1,12 +1,11 @@
 {
-  "name": "@zetrix/zetrix-development-tool",
+  "name": "zetrix-development-tool",
   "version": "1.0.1",
   "description": "A Zetrix development environment for professionals. It facilitates performing frequent tasks, such as running tests, interacting with a smart contract.",
   "main": "index.js",
   "scripts": {
-    "compile": "concat -o template/build/compiled.js template/contracts/1-base-starting.js template/contracts/2-body-ZTP20.js template/contracts/3-base-ending.js",
-    "deploy": "node ./template/scripts/01_deploy.js",
-    "test": "npx mocha ./template/tests/test-01.js"
+    "deploy": "node ./scripts/deploy.js",
+    "test": "npx mocha ./template/tests/test.js"
   },
   "repository": {
     "type": "git",
