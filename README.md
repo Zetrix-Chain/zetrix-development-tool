@@ -1,5 +1,5 @@
 # Zetrix Development Tool
-A Zetrix development environment for professionals. It facilitates performing frequent tasks, such as compiling smart contract and scripts for deployment and testing.
+A Zetrix development environment for professionals. It facilitates performing frequent tasks, such as smart contract deployment and testing.
 
 ## Docs & Useful Links
 
