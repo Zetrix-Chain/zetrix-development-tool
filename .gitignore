@@ -1,3 +1,9 @@
+.env
 node_modules
-package-lock.json
-.env*
+*.iml
+.idea
+merged-contract.js
+coverage
+.nyc_output
+generated/*.mjs
+generated/*.js
